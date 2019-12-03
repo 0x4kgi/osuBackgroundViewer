@@ -23,7 +23,7 @@ If you find a cool bg while spamming F2 in-game and want to save the picture but
 * have a db to hopefully speed this up
 * select the song on the osu! client (if possible)
 
-## installation
+## building from source
 
 1. clone this repo
 2. `cd osu`
@@ -31,6 +31,6 @@ If you find a cool bg while spamming F2 in-game and want to save the picture but
 4. Build this in Visual Studio
 5. Run
 
-## releases
+## installing without building
 
-* soon (how do I release things)
+* [head over at the releases](https://github.com/0x4kgi/osuBackgroundViewer/releases)
