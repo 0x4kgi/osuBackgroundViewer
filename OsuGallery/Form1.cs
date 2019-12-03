@@ -23,10 +23,7 @@ namespace OsuGallery
         int ctr = 0;
         int folderCount = 0;
 
-        public Form1()
-        {
-            InitializeComponent();
-        }
+        public Form1() => InitializeComponent();
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -79,7 +76,7 @@ namespace OsuGallery
 
                 worker.ReportProgress((int)((double)ctr / folderCount * 100));
             }
-            worker.ReportProgress(100);
+            worker.ReportProgress(1);
         }
 
         private void progressBar(object sender, ProgressChangedEventArgs e)
@@ -231,7 +228,58 @@ namespace OsuGallery
             string dir = lstDirectories.SelectedItem.ToString();
             Console.WriteLine("Directory selected: " + dir);
 
-            loadImages(dir);            
+            loadImages(dir);
+
+            UpdateButtonNavigationState();
+        }
+
+        private void UpdateButtonNavigationState()
+        {
+            int listLength = lstDirectories.Items.Count;
+            int currentIndex = lstDirectories.SelectedIndex;
+
+            if (currentIndex == 0) btnPrev.Enabled = false;
+            else if (currentIndex == listLength - 1) btnNext.Enabled = false;
+            else {
+                btnNext.Enabled = true;
+                btnPrev.Enabled = true;
+            }
+        }
+
+        private void NavigateList(object sender, EventArgs e)
+        {
+            bool fromPrev = (sender == btnPrev) ? true : false;
+
+            int imagesCount = lstImages.Items.Count;
+
+            if (imagesCount <= 1)
+            {
+                if (!fromPrev) lstDirectories.SelectedIndex += 1;
+                else if (fromPrev) lstDirectories.SelectedIndex -= 1;
+            }
+            else
+            {
+                int imagesIndex = lstImages.SelectedIndex;
+
+                if (imagesIndex != 0)
+                {
+                    if (imagesIndex != imagesCount - 1)
+                    {
+                        if (!fromPrev) lstImages.SelectedIndex += 1;
+                        else if (fromPrev) lstImages.SelectedIndex -= 1;
+                    }
+                    else
+                    {
+                        if (fromPrev) lstImages.SelectedIndex -= 1;
+                        else if (!fromPrev) lstDirectories.SelectedIndex += 1;
+                    }
+                }
+                else
+                {
+                    if (fromPrev) lstDirectories.SelectedIndex -= 1;
+                    else if (!fromPrev) lstImages.SelectedIndex += 1;
+                }
+            }
         }
 
         private void loadImages(string dir)
@@ -267,11 +315,6 @@ namespace OsuGallery
             catch (Exception)
             {
                 lstImages.Enabled = false;
-
-                lstImages.Items.Add(" ");
-                lstImages.Items.Add("No background images found");
-                lstImages.Items.Add("Select another folder");
-                lstImages.Items.Add(" ");
 
                 pbxDisplayImage.Image = null;
             }
@@ -321,59 +364,34 @@ namespace OsuGallery
 
         private void btnReset_Click(object sender, EventArgs e)
         {
+            string currentSelection;
             try
             {
-                string currentSelection = lstDirectories.GetItemText(lstDirectories.SelectedItem.ToString());
-
-                lstDirectories.BeginUpdate();
-                lstDirectories.Items.Clear();
-
-                foreach (string file in foundElements)
-                {
-                    lstDirectories.Items.Add(file.Replace(txtOsuLocation.Text + "Songs\\", string.Empty));
-                }
-
-                txtSearch.Text = "";
-                lstDirectories.EndUpdate();
-
-                lstDirectories.SelectedItem = currentSelection;
-
-                lblStatus.Text = "Found " + ctr + " folders";
+                currentSelection = lstDirectories.GetItemText(lstDirectories.SelectedItem.ToString());                
             }
             catch (Exception)
             {
+                currentSelection = null;
             }
 
-            if (foundElements.Count > 0)
-                lstDirectories.SelectedIndex = 0;
-        }
+            lstDirectories.BeginUpdate();
+            lstDirectories.Items.Clear();
 
-        private void btnPrev_Click(object sender, EventArgs e)
-        {
-            try
+            foreach (string file in foundElements)
             {
-                if (lstDirectories.SelectedIndex != 0)
-                    lstDirectories.SelectedIndex -= 1;
+                lstDirectories.Items.Add(file.Replace(txtOsuLocation.Text + "Songs\\", string.Empty));
             }
-            catch (Exception)
-            {
-                MessageBox.Show("Reached the first item.");
-            }
-            
-        }
 
-        private void btnNext_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (lstDirectories.Items.Count != lstDirectories.SelectedIndex - 1)
-                    lstDirectories.SelectedIndex += 1;
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Reached the last item.");
-            }
-            
+            txtSearch.Text = "";
+            lstDirectories.EndUpdate();
+
+            if (currentSelection != null) lstDirectories.SelectedItem = currentSelection;
+            else lstDirectories.SelectedIndex = 0;            
+
+            lblStatus.Text = "Found " + ctr + " folders";
+
+            //if (foundElements.Count > 0)
+            //    lstDirectories.SelectedIndex = 0;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -385,14 +403,15 @@ namespace OsuGallery
 
                 string fullPath = txtOsuLocation.Text + "Songs\\" + folder + image;
 
+                lblFullFilePath.Text = fullPath;
+
                 fullPath = Path.GetFullPath(fullPath);
                 System.Diagnostics.Process.Start("explorer.exe", string.Format("/select,\"{0}\"", fullPath));
             }
             catch (Exception)
             {
                 MessageBox.Show("Cannot open file.");
-            }
-            
+            }            
         }
 
         private void lstImages_SelectedIndexChanged(object sender, EventArgs e)
@@ -403,11 +422,14 @@ namespace OsuGallery
                 string image = lstImages.SelectedItem.ToString();
                 string fullpath = txtOsuLocation.Text + "Songs\\" + folder + image;
 
+                lblFullFilePath.Text = fullpath;
+
                 pbxDisplayImage.Image = Image.FromFile(fullpath);
             }
             catch (Exception)
             {
-                //do nothing
+                //MessageBox.Show("Invalid image path. Please try again");
+                pbxDisplayImage.Image = null;
             }
         }
     }

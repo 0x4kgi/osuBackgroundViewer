@@ -44,8 +44,9 @@
             this.lblStatus = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.lstDirectories = new System.Windows.Forms.ListBox();
-            this.lstImages = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.lstImages = new System.Windows.Forms.ListBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbxDisplayImage)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -161,7 +162,7 @@
             this.btnNext.TabIndex = 14;
             this.btnNext.Text = ">";
             this.btnNext.UseVisualStyleBackColor = true;
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            this.btnNext.Click += new System.EventHandler(this.NavigateList);
             // 
             // btnPrev
             // 
@@ -173,7 +174,7 @@
             this.btnPrev.TabIndex = 15;
             this.btnPrev.Text = "<";
             this.btnPrev.UseVisualStyleBackColor = true;
-            this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
+            this.btnPrev.Click += new System.EventHandler(this.NavigateList);
             // 
             // button1
             // 
@@ -200,6 +201,7 @@
             // 
             this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.flowLayoutPanel1.Controls.Add(this.label3);
             this.flowLayoutPanel1.Controls.Add(this.lstDirectories);
             this.flowLayoutPanel1.Controls.Add(this.label2);
             this.flowLayoutPanel1.Controls.Add(this.lstImages);
@@ -215,11 +217,20 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lstDirectories.FormattingEnabled = true;
-            this.lstDirectories.Location = new System.Drawing.Point(3, 3);
+            this.lstDirectories.Location = new System.Drawing.Point(3, 16);
             this.lstDirectories.Name = "lstDirectories";
-            this.lstDirectories.Size = new System.Drawing.Size(356, 264);
+            this.lstDirectories.Size = new System.Drawing.Size(356, 225);
             this.lstDirectories.TabIndex = 0;
             this.lstDirectories.SelectedIndexChanged += new System.EventHandler(this.lstImageFileLocations_SelectedIndexChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 244);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(44, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Images:";
             // 
             // lstImages
             // 
@@ -229,20 +240,20 @@
             "Select a song folder above to show bg images here :)",
             "",
             "videos are not supported"});
-            this.lstImages.Location = new System.Drawing.Point(3, 286);
+            this.lstImages.Location = new System.Drawing.Point(3, 260);
             this.lstImages.Name = "lstImages";
             this.lstImages.Size = new System.Drawing.Size(356, 160);
             this.lstImages.TabIndex = 1;
             this.lstImages.SelectedIndexChanged += new System.EventHandler(this.lstImages_SelectedIndexChanged);
             // 
-            // label2
+            // label3
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 270);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "label2";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(57, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Directories";
             // 
             // Form1
             // 
@@ -297,6 +308,7 @@
         private System.Windows.Forms.ListBox lstDirectories;
         private System.Windows.Forms.ListBox lstImages;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
 
