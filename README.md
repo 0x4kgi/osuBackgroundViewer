@@ -1,6 +1,8 @@
 # osu! background viewer
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/29cb201e291b4d8fa9b8d2392c3b7077)](https://www.codacy.com/manual/0x4kgi/osuBackgroundViewer?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=0x4kgi/osuBackgroundViewer&amp;utm_campaign=Badge_Grade)
 ![Image](https://i.imgur.com/saxtKc4.png)
+
 
 If you find a cool bg while spamming F2 in-game and want to save the picture but you're too lazy to open the editor to open the song folder and has the time to open another exe to save the said bg, this program is for you.
 
