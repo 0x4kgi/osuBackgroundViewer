@@ -23,7 +23,10 @@ namespace OsuGallery
         int ctr = 0;
         int folderCount = 0;
 
-        public Form1() => InitializeComponent();
+        public Form1() 
+        {
+            InitializeComponent();
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
