@@ -231,7 +231,7 @@ namespace OsuGallery
         private void lstImageFileLocations_SelectedIndexChanged(object sender, EventArgs e)
         {
             string dir = lstDirectories.SelectedItem.ToString();
-            Console.WriteLine("Directory selected: " + dir);
+            //Console.WriteLine("Directory selected: " + dir);
 
             loadImages(dir);
 
@@ -260,8 +260,8 @@ namespace OsuGallery
 
             if (imagesCount <= 1)
             {
-                if (!fromPrev) lstDirectories.SelectedIndex += 1;
-                else if (fromPrev) lstDirectories.SelectedIndex -= 1;
+                if (!fromPrev) { lstDirectories.SelectedIndex += 1; }
+                else if (fromPrev) { lstDirectories.SelectedIndex -= 1; }
             }
             else
             {
@@ -275,18 +275,33 @@ namespace OsuGallery
                         {
                             lstImages.SelectedIndex += 1;
                         }
-                        else if (fromPrev) { lstImages.SelectedIndex -= 1; }
+                        else
+                        {
+                            lstImages.SelectedIndex -= 1;
+                        }
                     }
                     else
                     {
-                        if (fromPrev) { lstImages.SelectedIndex -= 1; }
-                        else if (!fromPrev) { lstDirectories.SelectedIndex += 1; }
+                        if (fromPrev)
+                        { 
+                            lstImages.SelectedIndex -= 1; 
+                        }
+                        else
+                        { 
+                            lstDirectories.SelectedIndex += 1; 
+                        }
                     }
                 }
                 else
                 {
-                    if (fromPrev) { lstDirectories.SelectedIndex -= 1; }
-                    else if (!fromPrev) { lstImages.SelectedIndex += 1; }
+                    if (fromPrev) 
+                    { 
+                        lstDirectories.SelectedIndex -= 1; 
+                    }
+                    else
+                    { 
+                        lstImages.SelectedIndex += 1; 
+                    }
                 }
             }
         }
