@@ -15,7 +15,7 @@ namespace OsuGallery
 {
     public partial class Form1 : Form
     {
-        //some glabal variables
+        //some global variables
         BackgroundWorker worker;
         private List<string> foundElements = new List<string>();
 
@@ -50,27 +50,6 @@ namespace OsuGallery
             //iterate on every dir of \Songs\
             foreach (string item in Directory.GetDirectories(txtOsuLocation.Text + "Songs"))
             {
-                //List<string> bgElements = new List<string>();
-                //foreach (string file in Directory.GetFiles(item))
-                //{
-                //    if (Regex.IsMatch(file, "osu$"))
-                //    {
-                //        string bg = getBGPath(file);
-
-                //        if (bg != null && !bgElements.Contains(bg))
-                //        {
-                //            long size = getFileSize(item + bg);
-                //            if (size != 0)
-                //            {
-                //                bgElements.Add(bg);
-                //                foundElements.Add(item + bg);
-                //                filesSize += size;
-
-                //            }
-                //        }
-                //    }
-                //}
-
                 foundElements.Add(item);
 
                 ctr++;
@@ -84,16 +63,15 @@ namespace OsuGallery
 
         private void progressBar(object sender, ProgressChangedEventArgs e)
         {
-            //progressBar1.Value = e.ProgressPercentage;
             lblStatus.Text = String.Format("Found {0} items. ({1}% done)", ctr, e.ProgressPercentage);
         }
 
         private void findComplete(object sender, RunWorkerCompletedEventArgs e)
         {
             foreach (string file in foundElements)
+            {
                 lstDirectories.Items.Add(file.Replace(txtOsuLocation.Text + "Songs\\", string.Empty));
-
-            //foundElements.Clear();
+            }
 
             lblStatus.Text = "Found " + ctr + " items";
 
@@ -161,17 +139,9 @@ namespace OsuGallery
             {
                 if (osureg != null)
                 {
-                    //Console.WriteLine("osureg: " + osureg);
-
                     string osukey = osureg.GetValue(null).ToString();
-                    //Console.WriteLine("osukey: " + osukey);
-
                     string osupath = osukey.Remove(0, 1);
-                    //Console.WriteLine("osupath: " + osupath);
-
                     osupath = osupath.Remove(osupath.Length - 11);
-                    //Console.WriteLine("osupath (-11): " + osupath);                    
-
                     return osupath;
                 }
                 else
@@ -231,7 +201,6 @@ namespace OsuGallery
         private void lstImageFileLocations_SelectedIndexChanged(object sender, EventArgs e)
         {
             string dir = lstDirectories.SelectedItem.ToString();
-            //Console.WriteLine("Directory selected: " + dir);
 
             loadImages(dir);
 
@@ -260,8 +229,14 @@ namespace OsuGallery
 
             if (imagesCount <= 1)
             {
-                if (!fromPrev) { lstDirectories.SelectedIndex += 1; }
-                else if (fromPrev) { lstDirectories.SelectedIndex -= 1; }
+                if (!fromPrev)
+                {
+                    lstDirectories.SelectedIndex += 1;
+                }
+                else
+                {
+                    lstDirectories.SelectedIndex -= 1;
+                }
             }
             else
             {
@@ -283,24 +258,24 @@ namespace OsuGallery
                     else
                     {
                         if (fromPrev)
-                        { 
-                            lstImages.SelectedIndex -= 1; 
+                        {
+                            lstImages.SelectedIndex -= 1;
                         }
                         else
-                        { 
-                            lstDirectories.SelectedIndex += 1; 
+                        {
+                            lstDirectories.SelectedIndex += 1;
                         }
                     }
                 }
                 else
                 {
-                    if (fromPrev) 
-                    { 
-                        lstDirectories.SelectedIndex -= 1; 
+                    if (fromPrev)
+                    {
+                        lstDirectories.SelectedIndex -= 1;
                     }
                     else
-                    { 
-                        lstImages.SelectedIndex += 1; 
+                    {
+                        lstImages.SelectedIndex += 1;
                     }
                 }
             }
@@ -377,7 +352,9 @@ namespace OsuGallery
             lstDirectories.EndUpdate();
 
             if (lstDirectories.Items.Count > 0)
-            { lstDirectories.SelectedIndex = 0; }
+            {
+                lstDirectories.SelectedIndex = 0;
+            }
 
             enableEverything(true);
         }
@@ -413,9 +390,6 @@ namespace OsuGallery
             else lstDirectories.SelectedIndex = 0;
 
             lblStatus.Text = "Found " + ctr + " folders";
-
-            //if (foundElements.Count > 0)
-            //    lstDirectories.SelectedIndex = 0;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -452,7 +426,6 @@ namespace OsuGallery
             }
             catch (Exception)
             {
-                //MessageBox.Show("Invalid image path. Please try again");
                 pbxDisplayImage.Image = null;
             }
         }
