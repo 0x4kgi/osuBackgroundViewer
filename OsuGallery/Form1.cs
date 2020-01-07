@@ -226,7 +226,6 @@ namespace OsuGallery
             {
                 worker.CancelAsync();
             }
-
         }
 
         private void lstImageFileLocations_SelectedIndexChanged(object sender, EventArgs e)
