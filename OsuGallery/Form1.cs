@@ -23,7 +23,7 @@ namespace OsuGallery
         int ctr = 0;
         int folderCount = 0;
 
-        public Form1() 
+        public Form1()
         {
             InitializeComponent();
         }
@@ -40,12 +40,12 @@ namespace OsuGallery
             worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(findComplete);
             worker.WorkerReportsProgress = true;
             worker.WorkerSupportsCancellation = true;
-        }      
+        }
 
         private void findElements(object sender, DoWorkEventArgs e)
         {
             //count folders for progress count
-            folderCount = Directory.GetDirectories(txtOsuLocation.Text + "Songs").Length;            
+            folderCount = Directory.GetDirectories(txtOsuLocation.Text + "Songs").Length;
 
             //iterate on every dir of \Songs\
             foreach (string item in Directory.GetDirectories(txtOsuLocation.Text + "Songs"))
@@ -116,7 +116,7 @@ namespace OsuGallery
             lstDirectories.Enabled = x;
         }
 
-        private long getFileSize(string v)
+        private static long getFileSize(string v)
         {
             try
             {
@@ -133,7 +133,7 @@ namespace OsuGallery
             }
         }
 
-        private string getBGPath(string path)
+        private static string getBGPath(string path)
         {
             using (StreamReader file = File.OpenText(path))
             {
@@ -155,22 +155,22 @@ namespace OsuGallery
             }
         }
 
-        private string getOsuPath()
+        private static string getOsuPath()
         {
             using (RegistryKey osureg = Registry.ClassesRoot.OpenSubKey("osu\\DefaultIcon"))
             {
                 if (osureg != null)
                 {
-                    Console.WriteLine("osureg: " + osureg);
+                    //Console.WriteLine("osureg: " + osureg);
 
                     string osukey = osureg.GetValue(null).ToString();
-                    Console.WriteLine("osukey: " + osukey);
+                    //Console.WriteLine("osukey: " + osukey);
 
                     string osupath = osukey.Remove(0, 1);
-                    Console.WriteLine("osupath: " + osupath);
+                    //Console.WriteLine("osupath: " + osupath);
 
                     osupath = osupath.Remove(osupath.Length - 11);
-                    Console.WriteLine("osupath (-11): " + osupath);                    
+                    //Console.WriteLine("osupath (-11): " + osupath);                    
 
                     return osupath;
                 }
@@ -216,14 +216,17 @@ namespace OsuGallery
 
             btnCancel.Visible = true;
             lstDirectories.Items.Clear();
-            
+
             worker.RunWorkerAsync();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             if (worker.IsBusy)
+            {
                 worker.CancelAsync();
+            }
+
         }
 
         private void lstImageFileLocations_SelectedIndexChanged(object sender, EventArgs e)
@@ -243,7 +246,8 @@ namespace OsuGallery
 
             if (currentIndex == 0) btnPrev.Enabled = false;
             else if (currentIndex == listLength - 1) btnNext.Enabled = false;
-            else {
+            else
+            {
                 btnNext.Enabled = true;
                 btnPrev.Enabled = true;
             }
@@ -268,19 +272,22 @@ namespace OsuGallery
                 {
                     if (imagesIndex != imagesCount - 1)
                     {
-                        if (!fromPrev) lstImages.SelectedIndex += 1;
-                        else if (fromPrev) lstImages.SelectedIndex -= 1;
+                        if (!fromPrev)
+                        {
+                            lstImages.SelectedIndex += 1;
+                        }
+                        else if (fromPrev) { lstImages.SelectedIndex -= 1; }
                     }
                     else
                     {
-                        if (fromPrev) lstImages.SelectedIndex -= 1;
-                        else if (!fromPrev) lstDirectories.SelectedIndex += 1;
+                        if (fromPrev) { lstImages.SelectedIndex -= 1; }
+                        else if (!fromPrev) { lstDirectories.SelectedIndex += 1; }
                     }
                 }
                 else
                 {
-                    if (fromPrev) lstDirectories.SelectedIndex -= 1;
-                    else if (!fromPrev) lstImages.SelectedIndex += 1;
+                    if (fromPrev) { lstDirectories.SelectedIndex -= 1; }
+                    else if (!fromPrev) { lstImages.SelectedIndex += 1; }
                 }
             }
         }
@@ -299,7 +306,7 @@ namespace OsuGallery
                     string bg = getBGPath(file);
 
                     if (bg != null && !bgElements.Contains(bg))
-                    {                       
+                    {
                         bgElements.Add(bg);
                     }
                 }
@@ -343,20 +350,20 @@ namespace OsuGallery
                     {
                         lstDirectories.Items.Add(key.Replace(txtOsuLocation.Text + "Songs\\", string.Empty));
                         foundctr++;
-                    }                                      
+                    }
                 }
                 lblStatus.Text = searchKey + " has " + foundctr + " results";
             }
             else
             {
                 foreach (string file in foundElements)
-                    lstDirectories.Items.Add(file.Replace(txtOsuLocation.Text + "Songs\\", string.Empty));
+                { lstDirectories.Items.Add(file.Replace(txtOsuLocation.Text + "Songs\\", string.Empty)); }
             }
 
             lstDirectories.EndUpdate();
 
             if (lstDirectories.Items.Count > 0)
-                lstDirectories.SelectedIndex = 0;
+            { lstDirectories.SelectedIndex = 0; }
 
             enableEverything(true);
         }
@@ -370,7 +377,7 @@ namespace OsuGallery
             string currentSelection;
             try
             {
-                currentSelection = lstDirectories.GetItemText(lstDirectories.SelectedItem.ToString());                
+                currentSelection = lstDirectories.GetItemText(lstDirectories.SelectedItem.ToString());
             }
             catch (Exception)
             {
@@ -389,7 +396,7 @@ namespace OsuGallery
             lstDirectories.EndUpdate();
 
             if (currentSelection != null) lstDirectories.SelectedItem = currentSelection;
-            else lstDirectories.SelectedIndex = 0;            
+            else lstDirectories.SelectedIndex = 0;
 
             lblStatus.Text = "Found " + ctr + " folders";
 
@@ -414,7 +421,7 @@ namespace OsuGallery
             catch (Exception)
             {
                 MessageBox.Show("Cannot open file.");
-            }            
+            }
         }
 
         private void lstImages_SelectedIndexChanged(object sender, EventArgs e)
