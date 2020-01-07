@@ -88,7 +88,7 @@ namespace OsuGallery
             }
         }
 
-        private static void enableEverything(bool x)
+        private void enableEverything(bool x)
         {
             txtSearch.Enabled = x;
             btnSearch.Enabled = x;
@@ -212,7 +212,7 @@ namespace OsuGallery
             UpdateButtonNavigationState();
         }
 
-        private static void UpdateButtonNavigationState()
+        private void UpdateButtonNavigationState()
         {
             int listLength = lstDirectories.Items.Count;
             int currentIndex = lstDirectories.SelectedIndex;
@@ -232,7 +232,7 @@ namespace OsuGallery
             }
         }
 
-        private static void NavigateList(object sender, EventArgs e)
+        private void NavigateList(object sender, EventArgs e)
         {
             bool fromPrev = (sender == btnPrev) ? true : false;
 
@@ -292,7 +292,7 @@ namespace OsuGallery
             }
         }
 
-        private static void loadImages(string dir)
+        private void loadImages(string dir)
         {
             lstImages.Items.Clear();
 
