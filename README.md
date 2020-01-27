@@ -4,6 +4,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/g84xis70hquae5aj/branch/master?svg=true)](https://ci.appveyor.com/project/0x4kgi/osubackgroundviewer/branch/master)
 [![CodeFactor](https://www.codefactor.io/repository/github/0x4kgi/osubackgroundviewer/badge)](https://www.codefactor.io/repository/github/0x4kgi/osubackgroundviewer)
 [![GitHub license](https://img.shields.io/github/license/0x4kgi/osuBackgroundViewer)](https://github.com/0x4kgi/osuBackgroundViewer/blob/master/LICENSE)
+[![HitCount](http://hits.dwyl.io/0x4kgi/osuBackgroundViewer.svg)](http://hits.dwyl.io/0x4kgi/osuBackgroundViewer)
 
 ![Image](https://i.imgur.com/saxtKc4.png)
 
