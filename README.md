@@ -43,5 +43,5 @@ If you find a cool bg while spamming F2 in-game and want to save the picture but
 * [head over at the releases](https://github.com/0x4kgi/osuBackgroundViewer/releases)
 
 ## some code taken from
-* Funtions to get files related to the beatmaps:
+* Functions to get files related to the beatmaps:
   * [henntix/osu-cleaner](https://github.com/henntix/osu-cleaner)
