@@ -33,7 +33,7 @@ If you find a cool bg while spamming F2 in-game and want to save the picture but
 ## building from source
 
 1. clone this repo
-2. `cd osu`
+2. `cd osuBackgroundViewer`
 3. `vs2019 .`
 4. Build this in Visual Studio
 5. Run
@@ -41,3 +41,7 @@ If you find a cool bg while spamming F2 in-game and want to save the picture but
 ## installing without building
 
 * [head over at the releases](https://github.com/0x4kgi/osuBackgroundViewer/releases)
+
+## some code taken from
+* Funtions to get files related to the beatmaps:
+  * [henntix/osu-cleaner](https://github.com/henntix/osu-cleaner)
