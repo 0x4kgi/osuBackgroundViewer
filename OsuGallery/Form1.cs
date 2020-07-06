@@ -18,6 +18,7 @@ namespace OsuGallery
         //some global variables
         BackgroundWorker worker;
         private List<string> foundElements = new List<string>();
+        private string songsFolder;
 
         //counter for found elements
         int ctr = 0;
@@ -45,10 +46,10 @@ namespace OsuGallery
         private void findElements(object sender, DoWorkEventArgs e)
         {
             //count folders for progress count
-            folderCount = Directory.GetDirectories(txtOsuLocation.Text + "Songs").Length;
+            folderCount = Directory.GetDirectories(songsFolder + "\\").Length;
 
             //iterate on every dir of \Songs\
-            foreach (string item in Directory.GetDirectories(txtOsuLocation.Text + "Songs"))
+            foreach (string item in Directory.GetDirectories(songsFolder + "\\"))
             {
                 foundElements.Add(item);
 
@@ -175,7 +176,33 @@ namespace OsuGallery
                     return;
                 }
             }
+
+            songsFolder = getSongsFolder(folder.SelectedPath);
+
+            lblSongsFolder.Text = songsFolder;
+
             txtOsuLocation.Text = folder.SelectedPath + "\\";
+        }
+
+        private string getSongsFolder(string rootFolder) 
+        {
+            string windowsUsername = Environment.UserName;
+            string osuCfgFile = string.Format("osu!.{0}.cfg", windowsUsername);
+
+            string[] cfgFileLines = File.ReadAllLines(String.Format("{0}\\{1}", rootFolder, osuCfgFile));
+
+            string whatToFind = "^BeatmapDirectory";
+            foreach (string line in cfgFileLines)
+            {
+                if (Regex.IsMatch(line, whatToFind))
+                {
+                    string[] tmp = line.Split('=');
+
+                    return tmp[1].Trim();
+                }
+            }
+
+            return "No cfg file found.";
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
@@ -296,7 +323,7 @@ namespace OsuGallery
         {
             lstImages.Items.Clear();
 
-            string fullPath = txtOsuLocation.Text + "Songs\\" + dir;
+            string fullPath = dir;
 
             List<string> bgElements = new List<string>();
             foreach (string file in Directory.GetFiles(fullPath))
@@ -435,7 +462,7 @@ namespace OsuGallery
             {
                 string folder = lstDirectories.SelectedItem.ToString();
                 string image = lstImages.SelectedItem.ToString();
-                string fullpath = txtOsuLocation.Text + "Songs\\" + folder + image;
+                string fullpath = songsFolder + folder + image;
 
                 lblFullFilePath.Text = fullpath;
 
