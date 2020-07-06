@@ -74,7 +74,7 @@ namespace OsuGallery
         {
             foreach (string file in foundElements)
             {
-                lstDirectories.Items.Add(file.Replace(txtOsuLocation.Text + "Songs\\", string.Empty));
+                lstDirectories.Items.Add(file.Replace(songsFolder + "\\", string.Empty));
             }
 
             lblStatus.Text = "Found " + ctr + " items";
@@ -179,7 +179,7 @@ namespace OsuGallery
 
             songsFolder = getSongsFolder(folder.SelectedPath);
 
-            lblSongsFolder.Text = songsFolder;
+            lblSongsFolder.Text = songsFolder + "\\";
 
             txtOsuLocation.Text = folder.SelectedPath + "\\";
         }
@@ -323,7 +323,7 @@ namespace OsuGallery
         {
             lstImages.Items.Clear();
 
-            string fullPath = dir;
+            string fullPath = songsFolder + "\\" + dir;
 
             List<string> bgElements = new List<string>();
             foreach (string file in Directory.GetFiles(fullPath))
@@ -443,7 +443,7 @@ namespace OsuGallery
                 string folder = lstDirectories.SelectedItem.ToString();
                 string image = lstImages.SelectedItem.ToString();
 
-                string fullPath = txtOsuLocation.Text + "Songs\\" + folder + image;
+                string fullPath = songsFolder + "\\" + folder + image;
 
                 lblFullFilePath.Text = fullPath;
 
@@ -462,7 +462,7 @@ namespace OsuGallery
             {
                 string folder = lstDirectories.SelectedItem.ToString();
                 string image = lstImages.SelectedItem.ToString();
-                string fullpath = songsFolder + folder + image;
+                string fullpath = songsFolder + "\\" + folder + image;
 
                 lblFullFilePath.Text = fullpath;
 
