@@ -188,8 +188,17 @@ namespace OsuGallery
         {
             string windowsUsername = Environment.UserName;
             string osuCfgFile = string.Format("osu!.{0}.cfg", windowsUsername);
+            string[] cfgFileLines;
+            try
+            {
+                cfgFileLines = File.ReadAllLines(String.Format("{0}\\{1}", rootFolder, osuCfgFile));
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Can't find the osu! songs folder, select the proper osu! ROOT directory");
 
-            string[] cfgFileLines = File.ReadAllLines(String.Format("{0}\\{1}", rootFolder, osuCfgFile));
+                return "--";
+            }            
 
             string whatToFind = "^BeatmapDirectory";
             foreach (string line in cfgFileLines)
@@ -202,11 +211,16 @@ namespace OsuGallery
                 }
             }
 
-            return "No cfg file found.";
+            return "--";
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
+            if (getSongsFolder(txtOsuLocation.Text) == "--" || lblSongsFolder.Text == "unknown" || lblSongsFolder.Text == "--\\")
+            {
+                btnLocateOsu_Click(sender, e);
+            }
+
             ctr = 0;
             folderCount = 0;
             foundElements.Clear();
@@ -324,6 +338,7 @@ namespace OsuGallery
             lstImages.Items.Clear();
 
             string fullPath = songsFolder + "\\" + dir;
+            //string fullPath = dir;
 
             List<string> bgElements = new List<string>();
             foreach (string file in Directory.GetFiles(fullPath))
@@ -370,12 +385,12 @@ namespace OsuGallery
                 int foundctr = 0;
                 foreach (string key in foundElements)
                 {
-                    string lowKey = key.Replace(txtOsuLocation.Text + "Songs\\", string.Empty).ToLower();
+                    string lowKey = key.Replace(songsFolder + "\\", string.Empty).ToLower();
                     string lolSKey = searchKey.ToLower();
 
                     if (lowKey.Contains(lolSKey))
                     {
-                        lstDirectories.Items.Add(key.Replace(txtOsuLocation.Text + "Songs\\", string.Empty));
+                        lstDirectories.Items.Add(key.Replace(songsFolder + "\\", string.Empty));
                         foundctr++;
                     }
                 }
@@ -384,7 +399,7 @@ namespace OsuGallery
             else
             {
                 foreach (string file in foundElements)
-                { lstDirectories.Items.Add(file.Replace(txtOsuLocation.Text + "Songs\\", string.Empty)); }
+                { lstDirectories.Items.Add(file.Replace(songsFolder + "\\", string.Empty)); }
             }
 
             lstDirectories.EndUpdate();
@@ -418,7 +433,7 @@ namespace OsuGallery
 
             foreach (string file in foundElements)
             {
-                lstDirectories.Items.Add(file.Replace(txtOsuLocation.Text + "Songs\\", string.Empty));
+                lstDirectories.Items.Add(file.Replace(songsFolder + "\\", string.Empty));
             }
 
             txtSearch.Text = "";
