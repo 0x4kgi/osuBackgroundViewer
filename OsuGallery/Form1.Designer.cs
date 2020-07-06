@@ -43,10 +43,12 @@
             this.button1 = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label3 = new System.Windows.Forms.Label();
             this.lstDirectories = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.lstImages = new System.Windows.Forms.ListBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblSongsFolder = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbxDisplayImage)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -92,7 +94,7 @@
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(296, 35);
+            this.btnRefresh.Location = new System.Drawing.Point(296, 59);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(75, 23);
             this.btnRefresh.TabIndex = 5;
@@ -102,7 +104,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(215, 35);
+            this.btnCancel.Location = new System.Drawing.Point(215, 59);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 8;
@@ -124,16 +126,15 @@
             // txtSearch
             // 
             this.txtSearch.Enabled = false;
-            this.txtSearch.Location = new System.Drawing.Point(12, 63);
+            this.txtSearch.Location = new System.Drawing.Point(12, 87);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(197, 20);
             this.txtSearch.TabIndex = 10;
-            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // btnSearch
             // 
             this.btnSearch.Enabled = false;
-            this.btnSearch.Location = new System.Drawing.Point(215, 61);
+            this.btnSearch.Location = new System.Drawing.Point(215, 85);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 12;
@@ -144,7 +145,7 @@
             // btnReset
             // 
             this.btnReset.Enabled = false;
-            this.btnReset.Location = new System.Drawing.Point(297, 61);
+            this.btnReset.Location = new System.Drawing.Point(297, 85);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(74, 23);
             this.btnReset.TabIndex = 13;
@@ -191,7 +192,7 @@
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(12, 40);
+            this.lblStatus.Location = new System.Drawing.Point(12, 64);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(85, 13);
             this.lblStatus.TabIndex = 18;
@@ -206,10 +207,19 @@
             this.flowLayoutPanel1.Controls.Add(this.label2);
             this.flowLayoutPanel1.Controls.Add(this.lstImages);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 90);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 115);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(364, 463);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(364, 438);
             this.flowLayoutPanel1.TabIndex = 19;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(57, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Directories";
             // 
             // lstDirectories
             // 
@@ -246,20 +256,31 @@
             this.lstImages.TabIndex = 1;
             this.lstImages.SelectedIndexChanged += new System.EventHandler(this.lstImages_SelectedIndexChanged);
             // 
-            // label3
+            // label4
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Directories";
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(8, 38);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(72, 13);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "Songs Folder:";
+            // 
+            // lblSongsFolder
+            // 
+            this.lblSongsFolder.AutoSize = true;
+            this.lblSongsFolder.Location = new System.Drawing.Point(86, 38);
+            this.lblSongsFolder.Name = "lblSongsFolder";
+            this.lblSongsFolder.Size = new System.Drawing.Size(51, 13);
+            this.lblSongsFolder.TabIndex = 21;
+            this.lblSongsFolder.Text = "unknown";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1080, 566);
+            this.Controls.Add(this.lblSongsFolder);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnPrev);
@@ -309,6 +330,8 @@
         private System.Windows.Forms.ListBox lstImages;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblSongsFolder;
     }
 }
 
