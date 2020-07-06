@@ -100,23 +100,6 @@ namespace OsuGallery
             lstDirectories.Enabled = x;
         }
 
-        private static long getFileSize(string v)
-        {
-            try
-            {
-                FileInfo sizeInfo = new FileInfo(v);
-                return sizeInfo.Length;
-            }
-            catch (FileNotFoundException)
-            {
-                return 0;
-            }
-            catch (NotSupportedException)
-            {
-                return 0;
-            }
-        }
-
         private static string getBGPath(string path)
         {
             using (StreamReader file = File.OpenText(path))
@@ -338,7 +321,6 @@ namespace OsuGallery
             lstImages.Items.Clear();
 
             string fullPath = songsFolder + "\\" + dir;
-            //string fullPath = dir;
 
             List<string> bgElements = new List<string>();
             foreach (string file in Directory.GetFiles(fullPath))
@@ -410,10 +392,6 @@ namespace OsuGallery
             }
 
             enableEverything(true);
-        }
-
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
         }
 
         private void btnReset_Click(object sender, EventArgs e)
