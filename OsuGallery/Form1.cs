@@ -18,6 +18,7 @@ namespace OsuGallery
         //some global variables
         BackgroundWorker worker;
         private List<string> foundElements = new List<string>();
+        private string osuRootFolder;
         private string songsFolder;
 
         //counter for found elements
@@ -32,7 +33,8 @@ namespace OsuGallery
         private void Form1_Load(object sender, EventArgs e)
         {
             //get osu path form registry
-            txtOsuLocation.Text = getOsuFilePath();
+            osuRootFolder = getOsuFilePath();
+            txtOsuLocation.Text = osuRootFolder;    
 
             //initialize worker
             worker = new BackgroundWorker();
@@ -45,24 +47,40 @@ namespace OsuGallery
 
         private void findElements(object sender, DoWorkEventArgs e)
         {
-            //count folders for progress count
-            folderCount = Directory.GetDirectories(songsFolder + "\\").Length;
-
-            //iterate on every dir of \Songs\
-            foreach (string item in Directory.GetDirectories(songsFolder + "\\"))
+            try
             {
-                foundElements.Add(item);
+                //count folders for progress count
+                folderCount = Directory.GetDirectories(songsFolder + "\\").Length;
 
-                ctr++;
-
-                if (worker.CancellationPending)
+                //iterate on every dir of \Songs\
+                foreach (string item in Directory.GetDirectories(songsFolder + "\\"))
                 {
-                    return;
-                }
+                    foundElements.Add(item);
 
-                worker.ReportProgress((int)((double)ctr / folderCount * 100));
+                    ctr++;
+
+                    if (worker.CancellationPending)
+                    {
+                        return;
+                    }
+
+                    worker.ReportProgress((int)((double)ctr / folderCount * 100));
+                }
+                worker.ReportProgress(1);
             }
-            worker.ReportProgress(1);
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Songs folder not valid!", 
+                    String.Format(
+                        "The folder: {0} does not exist!\nError message: {1}",
+                        songsFolder,
+                        ex.Message
+                    ), 
+                    MessageBoxButtons.OK, 
+                    MessageBoxIcon.Error
+                );
+            }            
         }
 
         private void progressBar(object sender, ProgressChangedEventArgs e)
@@ -131,6 +149,7 @@ namespace OsuGallery
                     string osuRegistryKey = osuRegistry.GetValue(null).ToString();
                     string osuFilePath = osuRegistryKey.Remove(0, 1);
                     osuFilePath = osuFilePath.Remove(osuFilePath.Length - 11);
+
                     return osuFilePath;
                 }
                 else
@@ -159,6 +178,8 @@ namespace OsuGallery
                     return;
                 }
             }
+
+            osuRootFolder = folder.SelectedPath;
 
             songsFolder = getSongsFolder(folder.SelectedPath);
 
@@ -190,7 +211,13 @@ namespace OsuGallery
                 {
                     string[] tmp = line.Split('=');
 
-                    return tmp[1].Trim();
+                    if (tmp[1].Trim().Equals("Songs"))
+                    {
+                        return osuRootFolder + "\\Songs";
+                    }
+                    else {
+                        return tmp[1].Trim();
+                    }
                 }
             }
 
