@@ -1,11 +1,4 @@
 # osu! background viewer
-
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/29cb201e291b4d8fa9b8d2392c3b7077)](https://www.codacy.com/manual/0x4kgi/osuBackgroundViewer?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=0x4kgi/osuBackgroundViewer&amp;utm_campaign=Badge_Grade)
-[![Build status](https://ci.appveyor.com/api/projects/status/g84xis70hquae5aj/branch/master?svg=true)](https://ci.appveyor.com/project/0x4kgi/osubackgroundviewer/branch/master)
-[![CodeFactor](https://www.codefactor.io/repository/github/0x4kgi/osubackgroundviewer/badge)](https://www.codefactor.io/repository/github/0x4kgi/osubackgroundviewer)
-[![GitHub license](https://img.shields.io/github/license/0x4kgi/osuBackgroundViewer)](https://github.com/0x4kgi/osuBackgroundViewer/blob/master/LICENSE)
-[![HitCount](http://hits.dwyl.io/0x4kgi/osuBackgroundViewer.svg)](http://hits.dwyl.io/0x4kgi/osuBackgroundViewer)
-
 ![Image](https://i.imgur.com/saxtKc4.png)
 
 
